@@ -1,13 +1,18 @@
 import "../css/Todo.css";
 import "../css/98.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "../css/Todo.css";
+import { useHistory } from "react-router-dom";
 import { PanZoom } from "react-easy-panzoom";
+import AuthContext from "../store/auth-context";
+import Config from "../utils/Config";
 
 function Todo6() {
   const [value, setValue] = useState("");
   const [question, setQuestion] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const authCtx = useContext(AuthContext);
+  const history = useHistory();
 
   useEffect(() => {
     let isMounted = true;
@@ -21,14 +26,14 @@ function Todo6() {
 
   const sendRequest = async () => {
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/questions/6",
+      `${Config.api_url}/tasks/questions/6`,
       {
         method: "GET",
 
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
+          `Bearer ${authCtx.token}`,
         },
       }
     );
@@ -50,21 +55,21 @@ function Todo6() {
     };
 
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/answer/6",
+      `${Config.api_url}/tasks/answer/6`,
       {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
+          `Bearer ${authCtx.token}`,
         },
       }
     );
     const response = await resp.json();
     setLoading(false);
     console.log(response);
-
+    history.push("/task7");
     setValue("");
   };
 
@@ -89,7 +94,7 @@ function Todo6() {
             <div className="belfort">
               <img
                 className="questionImage belfort-image"
-                src="https://res.cloudinary.com/drli5a6xv/image/upload/v1652866858/Frame_1_2_llbrwd.png"
+                src={question}
               />
             </div>
 

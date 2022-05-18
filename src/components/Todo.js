@@ -3,12 +3,14 @@ import "../css/98.css";
 import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../store/auth-context";
+import ActivityContext from "../store/activity-context";
 import Config from "../utils/Config";
 import { PanZoom } from "react-easy-panzoom";
 
 function Todo() {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
+  const actCtx = useContext(ActivityContext);
 
   const [value, setValue] = useState("");
   const [question, setQuestion] = useState("");
@@ -35,8 +37,10 @@ function Todo() {
       });
       const response = await data.json();
       const question = response["question"];
+      const score = response["score"];
 
       setQuestion(question);
+      actCtx.useScore(score);
     } catch (e) {
       alert(e);
     }

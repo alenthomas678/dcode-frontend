@@ -1,14 +1,17 @@
 import "../css/Todo.css";
 import "../css/98.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { PanZoom } from "react-easy-panzoom";
+import AuthContext from "../store/auth-context";
+import Config from "../utils/Config";
 
 function Todo2() {
   const [value, setValue] = useState("");
   const [question, setQuestion] = useState("");
   const [isLoading, setLoading] = useState(false);
   const history = useHistory();
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     let isMounted = true;
@@ -21,18 +24,13 @@ function Todo2() {
   }, []);
 
   const sendRequest = async () => {
-    const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/questions/2",
-      {
-        method: "GET",
-
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
-        },
-      }
-    );
+    const resp = await fetch(`${Config.api_url}/tasks/questions/2`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${authCtx.token}`,
+      },
+    });
     const response = await resp.json();
 
     const question = response["question"];
@@ -50,18 +48,14 @@ function Todo2() {
       answer: value,
     };
 
-    const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/answer/2",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
-        },
-      }
-    );
+    const resp = await fetch(`${Config.api_url}/tasks/answer/2`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${authCtx.token}`,
+      },
+    });
     const response = await resp.json();
     setLoading(false);
     console.log(response);
@@ -91,11 +85,11 @@ function Todo2() {
             </div>
           </div>
           <div className="window-body" style={{ padding: 5 }}>
-            <p>{question}</p>
+            {/* <p>{question}</p> */}
 
-            <audio controls style={{ marginTop: 15 }} loop autoplay>
+            <audio controls style={{ marginTop: 15 }} loop autoPlay>
               <source
-                src="https://cdn.jsdelivr.net/npm/sample-audio-files@1.0.7/media/2500_hz_sine_2_seconds.wav"
+                src="https://res.cloudinary.com/drli5a6xv/video/upload/v1652897293/audio_td7c9h.wav"
                 type="audio/wav"
               ></source>
               Your browser does not support the audio tag.
