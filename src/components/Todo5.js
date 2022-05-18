@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { PanZoom } from "react-easy-panzoom";
 
-function Todo2() {
+function Todo5() {
   const [value, setValue] = useState("");
   const [question, setQuestion] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -22,7 +22,7 @@ function Todo2() {
 
   const sendRequest = async () => {
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/questions/2",
+      "https://dcode-backend-app.herokuapp.com/v1/tasks/questions/5",
       {
         method: "GET",
 
@@ -51,7 +51,7 @@ function Todo2() {
     };
 
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/answer/2",
+      "https://dcode-backend-app.herokuapp.com/v1/tasks/answer/5",
       {
         method: "POST",
         body: JSON.stringify(data),
@@ -83,7 +83,7 @@ function Todo2() {
       <PanZoom autocenter="1">
         <div className="window" style={{ width: 400 }}>
           <div className="title-bar">
-            <div className="title-bar-text">Chamber of secrets Level 2/7</div>
+            <div className="title-bar-text">Chamber of secrets Level 5/7</div>
             <div className="title-bar-controls">
               <button aria-label="Minimize"></button>
               <button aria-label="Maximize"></button>
@@ -91,15 +91,9 @@ function Todo2() {
             </div>
           </div>
           <div className="window-body" style={{ padding: 5 }}>
-            <p>{question}</p>
-
-            <audio controls style={{ marginTop: 15 }} loop autoplay>
-              <source
-                src="https://cdn.jsdelivr.net/npm/sample-audio-files@1.0.7/media/2500_hz_sine_2_seconds.wav"
-                type="audio/wav"
-              ></source>
-              Your browser does not support the audio tag.
-            </audio>
+            <p className="question-p">
+              QW4gQVJQIGNhY2hlIGlzIGEgY29sbGVjdGlvbiBvZiBBZGRyZXNzIFJlc29sdXRpb24gUHJvdG9jb2wgZW50cmllcyB0aGF0IGFyZSBjcmVhdGVkIHdoZW4gYW4gSVAgYWRkcmVzcyBpcyByZXNvbHZlZCB0byBhIE1BQyBhZGRyZXNzLiAKQW4gQVJQIGNhY2hlIGhhcyB0aGUgZGlzYWR2YW50YWdlIG9mIHBvdGVudGlhbGx5IGJlaW5nIHVzZWQgYnkgaGFja2VycyBhbmQgY3liZXIgYXR0YWNrZXJzLiAKQW4gQVJQIGNhY2hlIGhlbHBzIHRoZSBhdHRhY2tlcnMgaGlkZSBiZWhpbmQgYSBmYWtlIElQIGFkZHJlc3MuWW91IGNhbiBmaW5kIHRoZSBsb2NhbCBjYWNoZSBvbiB5b3VyIGRldmljZSB1c2luZyBjb25zb2xlIGNvbW1hbmRzIGFuZCBnZXQgbWFjIGFkZHJlc3NlcyBmb3IgSVAncy4KVGhlIG1hYyBhZGRyZXNzIGZvciAxNzIuMTYuMi4yIHdvdWxkIGJlLi4g
+            </p>
 
             <form onSubmit={submitHandler}>
               <input
@@ -120,4 +114,4 @@ function Todo2() {
   );
 }
 
-export default Todo2;
+export default Todo5;
