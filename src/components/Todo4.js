@@ -1,13 +1,18 @@
 import "../css/Todo.css";
 import "../css/98.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "../css/Todo.css";
 import { PanZoom } from "react-easy-panzoom";
+import AuthContext from "../store/auth-context";
+import { useHistory } from "react-router-dom";
+import Config from "../utils/Config";
 
 function Todo4() {
   const [value, setValue] = useState("");
   const [question, setQuestion] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const authCtx = useContext(AuthContext);
+  const history = useHistory();
 
   useEffect(() => {
     let isMounted = true;
@@ -21,14 +26,14 @@ function Todo4() {
 
   const sendRequest = async () => {
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/questions/4",
+      `${Config.api_url}/tasks/questions/4`,
       {
         method: "GET",
 
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
+          `Bearer ${authCtx.token}`,
         },
       }
     );
@@ -50,21 +55,21 @@ function Todo4() {
     };
 
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/answer/4",
+      `${Config.api_url}/tasks/answer/4`,
       {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
+          `Bearer ${authCtx.token}`,
         },
       }
     );
     const response = await resp.json();
     setLoading(false);
     console.log(response);
-
+    history.push("/task5");
     setValue("");
   };
 

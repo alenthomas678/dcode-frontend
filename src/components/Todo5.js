@@ -1,14 +1,17 @@
 import "../css/Todo.css";
 import "../css/98.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { PanZoom } from "react-easy-panzoom";
+import AuthContext from "../store/auth-context";
+import Config from "../utils/Config";
 
 function Todo5() {
   const [value, setValue] = useState("");
   const [question, setQuestion] = useState("");
   const [isLoading, setLoading] = useState(false);
   const history = useHistory();
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     let isMounted = true;
@@ -22,14 +25,14 @@ function Todo5() {
 
   const sendRequest = async () => {
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/questions/5",
+      `${Config.api_url}/tasks/questions/5`,
       {
         method: "GET",
 
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
+          `Bearer ${authCtx.token}`,
         },
       }
     );
@@ -51,14 +54,14 @@ function Todo5() {
     };
 
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/answer/5",
+      `${Config.api_url}/tasks/answer/5`,
       {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
+          `Bearer ${authCtx.token}`,
         },
       }
     );
@@ -69,7 +72,7 @@ function Todo5() {
       response["message"] === "RIGHT_ANSWER" ||
       response["message"] === "ALREADY_ANSWERED"
     ) {
-      history.push("/task3");
+      history.push("/task6");
     }
 
     setValue("");
@@ -92,7 +95,8 @@ function Todo5() {
           </div>
           <div className="window-body" style={{ padding: 5 }}>
             <p className="question-p">
-              QW4gQVJQIGNhY2hlIGlzIGEgY29sbGVjdGlvbiBvZiBBZGRyZXNzIFJlc29sdXRpb24gUHJvdG9jb2wgZW50cmllcyB0aGF0IGFyZSBjcmVhdGVkIHdoZW4gYW4gSVAgYWRkcmVzcyBpcyByZXNvbHZlZCB0byBhIE1BQyBhZGRyZXNzLiAKQW4gQVJQIGNhY2hlIGhhcyB0aGUgZGlzYWR2YW50YWdlIG9mIHBvdGVudGlhbGx5IGJlaW5nIHVzZWQgYnkgaGFja2VycyBhbmQgY3liZXIgYXR0YWNrZXJzLiAKQW4gQVJQIGNhY2hlIGhlbHBzIHRoZSBhdHRhY2tlcnMgaGlkZSBiZWhpbmQgYSBmYWtlIElQIGFkZHJlc3MuWW91IGNhbiBmaW5kIHRoZSBsb2NhbCBjYWNoZSBvbiB5b3VyIGRldmljZSB1c2luZyBjb25zb2xlIGNvbW1hbmRzIGFuZCBnZXQgbWFjIGFkZHJlc3NlcyBmb3IgSVAncy4KVGhlIG1hYyBhZGRyZXNzIGZvciAxNzIuMTYuMi4yIHdvdWxkIGJlLi4g
+              {question}
+              {/* QW4gQVJQIGNhY2hlIGlzIGEgY29sbGVjdGlvbiBvZiBBZGRyZXNzIFJlc29sdXRpb24gUHJvdG9jb2wgZW50cmllcyB0aGF0IGFyZSBjcmVhdGVkIHdoZW4gYW4gSVAgYWRkcmVzcyBpcyByZXNvbHZlZCB0byBhIE1BQyBhZGRyZXNzLiAKQW4gQVJQIGNhY2hlIGhhcyB0aGUgZGlzYWR2YW50YWdlIG9mIHBvdGVudGlhbGx5IGJlaW5nIHVzZWQgYnkgaGFja2VycyBhbmQgY3liZXIgYXR0YWNrZXJzLiAKQW4gQVJQIGNhY2hlIGhlbHBzIHRoZSBhdHRhY2tlcnMgaGlkZSBiZWhpbmQgYSBmYWtlIElQIGFkZHJlc3MuWW91IGNhbiBmaW5kIHRoZSBsb2NhbCBjYWNoZSBvbiB5b3VyIGRldmljZSB1c2luZyBjb25zb2xlIGNvbW1hbmRzIGFuZCBnZXQgbWFjIGFkZHJlc3NlcyBmb3IgSVAncy4KVGhlIG1hYyBhZGRyZXNzIGZvciAxNzIuMTYuMi4yIHdvdWxkIGJlLi4g */}
             </p>
 
             <form onSubmit={submitHandler}>

@@ -1,14 +1,17 @@
 import "../css/Todo.css";
 import "../css/98.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { PanZoom } from "react-easy-panzoom";
+import AuthContext from "../store/auth-context";
+import Config from "../utils/Config";
 
 function Todo3() {
   const [value, setValue] = useState("");
   const [question, setQuestion] = useState("");
   const [isLoading, setLoading] = useState(false);
   const history = useHistory();
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     let isMounted = true;
@@ -22,14 +25,14 @@ function Todo3() {
 
   const sendRequest = async () => {
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/questions/3",
+      `${Config.api_url}/tasks/questions/3`,
       {
         method: "GET",
 
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
+          `Bearer ${authCtx.token}`,
         },
       }
     );
@@ -51,14 +54,14 @@ function Todo3() {
     };
 
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/answer/3",
+      `${Config.api_url}/tasks/answer/3`,
       {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZW50aG9tYXNuZWxsYXJ5ODg4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyODQ4ZTBiOWI4YzE2ZGNiMjJmN2JhNyIsImlhdCI6MTY1Mjg2NTI4MCwiZXhwIjoxNjUyODc2MDgwfQ.AsS4JJExLSdEQ7eBfI97kQRxzC00WDP76nA08wRzGFE",
+          `Bearer ${authCtx.token}`,
         },
       }
     );
@@ -69,7 +72,7 @@ function Todo3() {
       response["message"] === "RIGHT_ANSWER" ||
       response["message"] === "ALREADY_ANSWERED"
     ) {
-      history.push("/task3");
+      history.push("/task4");
     }
 
     setValue("");
@@ -91,10 +94,10 @@ function Todo3() {
             </div>
           </div>
           <div className="window-body" style={{ padding: 5 }}>
-            <p>{question}</p>
+            {/* <p>{question}</p> */}
 
             <img
-              src="https://images.fineartamerica.com/images-medium-large-5/rear-view-of-man-looking-at-star-field-cal-ag--eyeem.jpg"
+              src={question}
               alt=""
               className="questionImage"
             />
