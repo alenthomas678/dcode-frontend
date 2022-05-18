@@ -1,0 +1,38 @@
+.paperclip {
+  position: absolute;
+  width: 100px;
+  right: 10px;
+  bottom: 10px;
+  animation: pc_anim 1s infinite;
+}
+
+.paperclip:hover {
+  animation: none;
+}
+
+@keyframes pc_anim {
+  0% {
+    transform: translateY(5px);
+  }
+
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+body {
+  background: url(https://cutewallpaper.org/21/windows-98-clouds-wallpaper/windows-wallpaper-Tumblr.png);
+  overflow: hidden;
+}
+
+.Points {
+  position: absolute;
+  left: 20px;
+  /* transform: translateX(-50%); */
+  top: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  background: black;
+  padding: 3px;
+}
