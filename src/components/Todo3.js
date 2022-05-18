@@ -2,6 +2,7 @@ import "../css/Todo.css";
 import "../css/98.css";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { PanZoom } from "react-easy-panzoom";
 
 function Todo3() {
   const [value, setValue] = useState("");
@@ -79,40 +80,40 @@ function Todo3() {
   };
   return (
     <div className="centered-box">
-      <div className="window" style={{ width: 400 }}>
-        <div className="title-bar">
-          <div className="title-bar-text">Chamber of secrets Level 2/7</div>
-          <div className="title-bar-controls">
-            <button aria-label="Minimize"></button>
-            <button aria-label="Maximize"></button>
-            <button aria-label="Close"></button>
+      <PanZoom autocenter="1">
+        <div className="window" style={{ width: 400 }}>
+          <div className="title-bar">
+            <div className="title-bar-text">Chamber of secrets Level 2/7</div>
+            <div className="title-bar-controls">
+              <button aria-label="Minimize"></button>
+              <button aria-label="Maximize"></button>
+              <button aria-label="Close"></button>
+            </div>
+          </div>
+          <div className="window-body" style={{ padding: 5 }}>
+            <p>{question}</p>
+
+            <img
+              src="https://images.fineartamerica.com/images-medium-large-5/rear-view-of-man-looking-at-star-field-cal-ag--eyeem.jpg"
+              alt=""
+              className="questionImage"
+            />
+
+            <form onSubmit={submitHandler}>
+              <input
+                id="text17"
+                type="text"
+                value={value}
+                onChange={valueChangeHandler}
+                style={{ marginRight: 5 }}
+              />
+              <button type="submit" style={{ marginTop: 15 }}>
+                {isLoading ? "Loading..." : "Submit"}
+              </button>
+            </form>
           </div>
         </div>
-        <div className="window-body" style={{ padding: 5 }}>
-          <p>{question}</p>
-
-          <audio controls style={{ marginTop: 15 }} loop autoplay>
-            <source
-              src="https://cdn.jsdelivr.net/npm/sample-audio-files@1.0.7/media/2500_hz_sine_2_seconds.wav"
-              type="audio/wav"
-            ></source>
-            Your browser does not support the audio tag.
-          </audio>
-
-          <form onSubmit={submitHandler}>
-            <input
-              id="text17"
-              type="text"
-              value={value}
-              onChange={valueChangeHandler}
-              style={{ marginRight: 5 }}
-            />
-            <button type="submit" style={{ marginTop: 15 }}>
-              {isLoading ? "Loading..." : "Submit"}
-            </button>
-          </form>
-        </div>
-      </div>
+      </PanZoom>
     </div>
   );
 }

@@ -21,7 +21,7 @@ function Todo6() {
 
   const sendRequest = async () => {
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/questions/3",
+      "https://dcode-backend-app.herokuapp.com/v1/tasks/questions/6",
       {
         method: "GET",
 
@@ -50,7 +50,7 @@ function Todo6() {
     };
 
     const resp = await fetch(
-      "https://dcode-backend-app.herokuapp.com/v1/tasks/answer/3",
+      "https://dcode-backend-app.herokuapp.com/v1/tasks/answer/6",
       {
         method: "POST",
         body: JSON.stringify(data),
@@ -74,9 +74,9 @@ function Todo6() {
   return (
     <div className="centered-box">
       <PanZoom autocenter="1">
-        <div className="window" style={{ width: 300, height: 400 }}>
+        <div className="window" style={{ width: 300 }}>
           <div className="title-bar">
-            <div className="title-bar-text">Chamber of secrets Level 3/7</div>
+            <div className="title-bar-text">Chamber of secrets Level 6/7</div>
             <div className="title-bar-controls">
               <button aria-label="Minimize"></button>
               <button aria-label="Maximize"></button>
@@ -85,10 +85,14 @@ function Todo6() {
           </div>
           <div className="window-body" style={{ padding: 5 }}>
             <p>{question}</p>
-            <img
-              style={{ width: 200, height: 200, padding: "20px" }}
-              src="https://res.cloudinary.com/drli5a6xv/image/upload/v1652866858/Frame_1_2_llbrwd.png"
-            />
+
+            <div className="belfort">
+              <img
+                className="questionImage belfort-image"
+                src="https://res.cloudinary.com/drli5a6xv/image/upload/v1652866858/Frame_1_2_llbrwd.png"
+              />
+            </div>
+
             <form onSubmit={submitHandler}>
               <input
                 id="text17"

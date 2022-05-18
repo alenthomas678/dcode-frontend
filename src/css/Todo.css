@@ -5,3 +5,23 @@
   align-items: center;
   justify-content: center;
 }
+
+.questionImage {
+  max-width: 100%;
+  height: auto;
+}
+
+.question-p {
+  word-break: break-all;
+}
+
+.belfort {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.belfort-image {
+  width: 150px;
+}

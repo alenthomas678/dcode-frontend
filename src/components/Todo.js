@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../store/auth-context";
 import Config from "../utils/Config";
+import { PanZoom } from "react-easy-panzoom";
 
 function Todo() {
   const history = useHistory();
@@ -78,32 +79,34 @@ function Todo() {
   };
   return (
     <div className="centered-box">
-      <div className="window" style={{ width: 400 }}>
-        <div className="title-bar">
-          <div className="title-bar-text">Chamber of secrets Level 1/7</div>
-          <div className="title-bar-controls">
-            <button aria-label="Minimize"></button>
-            <button aria-label="Maximize"></button>
-            <button aria-label="Close"></button>
+      <PanZoom autocenter="1">
+        <div className="window" style={{ width: 400 }}>
+          <div className="title-bar">
+            <div className="title-bar-text">Chamber of secrets Level 1/7</div>
+            <div className="title-bar-controls">
+              <button aria-label="Minimize"></button>
+              <button aria-label="Maximize"></button>
+              <button aria-label="Close"></button>
+            </div>
+          </div>
+          <div className="window-body" style={{ padding: 5 }}>
+            <p>{question}</p>
+
+            <form onSubmit={submitHandler}>
+              <input
+                id="text17"
+                type="text"
+                value={value}
+                onChange={valueChangeHandler}
+                style={{ marginRight: 5 }}
+              />
+              <button type="submit" style={{ marginTop: 15 }}>
+                {isLoading ? "Loading..." : "Submit"}
+              </button>
+            </form>
           </div>
         </div>
-        <div className="window-body" style={{ padding: 5 }}>
-          <p>{question}</p>
-
-          <form onSubmit={submitHandler}>
-            <input
-              id="text17"
-              type="text"
-              value={value}
-              onChange={valueChangeHandler}
-              style={{ marginRight: 5 }}
-            />
-            <button type="submit" style={{ marginTop: 15 }}>
-              {isLoading ? "Loading..." : "Submit"}
-            </button>
-          </form>
-        </div>
-      </div>
+      </PanZoom>
     </div>
   );
 }

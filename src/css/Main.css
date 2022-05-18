@@ -36,3 +36,9 @@ body {
   background: black;
   padding: 3px;
 }
+
+.flying-button:hover {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+}

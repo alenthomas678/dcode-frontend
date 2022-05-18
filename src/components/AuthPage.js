@@ -88,7 +88,9 @@ const AuthPage = () => {
               ></input>
             </div>
             <br></br>
-            <button type="submit">{isLoading ? "Loading..." : "LOGIN"}</button>
+            <button className="flying-button" type="submit">
+              {isLoading ? "Loading..." : "LOGIN"}
+            </button>
           </form>
         </div>
       </div>
